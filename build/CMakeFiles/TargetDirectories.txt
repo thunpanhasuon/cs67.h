@@ -1,4 +1,0 @@
-/Users/suonthunpanha/cs67.h/build/CMakeFiles/cs67_lib.dir
-/Users/suonthunpanha/cs67.h/build/CMakeFiles/cs67_test.dir
-/Users/suonthunpanha/cs67.h/build/CMakeFiles/edit_cache.dir
-/Users/suonthunpanha/cs67.h/build/CMakeFiles/rebuild_cache.dir
