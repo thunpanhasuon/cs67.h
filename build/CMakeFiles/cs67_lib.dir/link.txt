@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcs67_lib.a CMakeFiles/cs67_lib.dir/cs67.c.o
+/usr/bin/ranlib libcs67_lib.a
