@@ -1,24 +1,8 @@
 - 1 add makefile 
 - 2 add cs65.c
 - 3 add feature() No(1)
-	
-
-	/* allocater I know how to do */
-	typedef struct {
-	    int *data;
-	    size_t size;
-	    size_t capacity;
-	} IntArray;
-
-	void array_init(IntArray *a);
-	void array_push(IntArray *a, int value);
-	void array_free(IntArray *a);
-
 
 	/* io utils */
-	int str_equal(const char *a, const char *b);
-	char *str_clone(const char *s);
-	char *read_file(const char *path);
 	int write_file(const char *path, const char *data);
 	void str_to_upper(char *s);
 

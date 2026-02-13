@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -std=c11 -O2
+CFLAGS = -std=c99
 
 TARGET = program
 
