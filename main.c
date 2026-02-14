@@ -2,21 +2,22 @@
 int main() {
 
 	printf("Hello from CS67\n");
-	double x = 1.0310, y = 10.323;	
+	int x = 10, y = 20, z = 40;
 
 	Array* container = array_init(sizeof(double), 1); 
 	printf("Is allocation -> %d\n", container->status_err);
 	
 	array_push(container, &x);
 	array_push(container, &y);
+	array_push(container, &z);
 
-	/* create a loop that loop to range and print out the content ether to access it */
-	double *rax = (double *)vector_get(container, 0);
-    double *rbx = (double *)vector_get(container, 1);
-	
-	printf("Element -> %f %f\n", *rax, *rbx);
-
-
+	Array_Inter inter;
+	inter_begin(container);
+	for (int i = 0; i < container->size; i++) {
+		int x = get_int(container, i);
+		printf("Inter -> %d \n", x);
+		inter_next(&inter);
+	}
 	array_free(container);
 	
 	char* test_string1 = "I love C programming";
