@@ -18,7 +18,12 @@ Node* push_front(Node** head, const void* element);
 void* pop_front(Node** head);
 
 /* String */
-
+int str_equal(const char *a, const char *b);
+int str_len(const char* s);
+char *str_copy(char* dest, const char* src);
+char *str_chr(const char *str, const char uc);
+char* str_cat(char* dest, const char* src);
+char *str_clone(const char *s);
 
 /* Io uitls */
 
