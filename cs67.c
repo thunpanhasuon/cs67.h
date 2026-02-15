@@ -148,20 +148,6 @@ void array_free(Array* a) {
 	free(a);
 }
 
-/* 
-	point to the first element of array 
-*/
-Array_Inter inter_begin(Array* a) {
-	return (Array_Inter){a->data, a->element_size};
-}
-
-/*
-	pointto the next by if we know the next element_size 
-	We can also just jump to the next 
-*/
-void* inter_next(Array_Inter* it) {
-	return (char*)it->current + it->element_size;	
-}
 
 /*
 	it a wrapper, without constantly type casting 
