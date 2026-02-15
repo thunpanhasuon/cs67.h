@@ -8,6 +8,10 @@
 /* Dynamic array */
 
 /* List */
+Node* create_node(const void* element, size_t element_size);
+Node* push_back(Node* head, const void* element);
+Node* push_front(Node** head, const void* element);
+void* pop_front(Node** head);
 
 /* String */
 
