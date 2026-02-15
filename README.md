@@ -6,6 +6,10 @@
 
 ```c
 /* Dynamic array */
+Array* array_init(size_t element, size_t capacity);
+int array_push(Array *a, const void* element);
+void* array_get(Array* a, size_t index);
+void array_free(Array *a);
 
 /* List */
 Node* create_node(const void* element, size_t element_size);
@@ -14,6 +18,7 @@ Node* push_front(Node** head, const void* element);
 void* pop_front(Node** head);
 
 /* String */
+
 
 /* Io uitls */
 
