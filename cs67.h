@@ -4,8 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #define MAX_LINE_LENGTH 4096 
+
+extern int errno;
+
+/* for string */
+typedef const char* String;
+
+typedef struct Node {
+    void* data;    
+    size_t element_size;
+    struct Node* next;
+} Node;
 
 typedef struct {
     int status_err;
@@ -20,6 +32,10 @@ typedef struct {
     size_t element_size;
 } Array_Inter;
 
+Node* create_node(const void* element, size_t element_size);
+Node* push_back(Node* head, const void* element);
+Node* push_front(Node** head, const void* element);
+void* pop_front(Node** head);
 /* 
  * array_init
  * --------------------------
@@ -28,7 +44,7 @@ typedef struct {
  * capacity: initial number of elements the array can hold
  * Returns a pointer to the allocated array (void* internally)
  */
-void* array_init(size_t element, size_t capacity);
+Array* array_init(size_t element, size_t capacity);
 
  /* 
  * array_push

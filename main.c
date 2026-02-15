@@ -1,4 +1,5 @@
 #include "cs67.h"
+#include <stdio.h>
 int main() {
 
 	printf("Hello from CS67\n");
@@ -28,7 +29,22 @@ int main() {
 	printf("Clone stirng %s\n", test_string2);	
 	printf("Reading form file %s \n", data);
 
+	int num1 = 67;
+	int num2 = 39;
+	printf("Huh\n");
+	
+	Node* head = create_node(&num1, sizeof(int));
 
+	push_back(head, &num2);
+	/* should i desgin another interater */
+
+	//push_back(head, &num1);
+	//push_back(head, &num2);
+	//
+	char* content = read_file("Hello.txt");
+	printf("%s \n", content);
+	
+	free(head);
 	free(test_string2);
 	free(data);	
 

@@ -1,42 +1,104 @@
 #include "cs67.h"
 
 
-void term_clear() {
-
-	#ifdef _WIN32	
-		system("cls");
-	#elif __LINUX__
-		system("clear");
-	#elif __APPLE__
-		system("clear");
-	#else 
-		#error "Unsupported System"
-	#endif 
-
+Node* create_node(const void* element, size_t element_size) {
+	Node* temp = (Node *)malloc(sizeof(Node));
+	if (temp == NULL) {
+		fprintf(stderr, "Error value %d \n", errno);
+		fprintf(stderr, "Error allocating memory %s\n", strerror(errno));	
+		/* sorry no memory */
+		return NULL;
+	}
+	temp->element_size = element_size;
+	temp->data = malloc(element_size);
+	if (temp->data == NULL) {
+		fprintf(stderr, "Error value %d \n", errno);
+		fprintf(stderr, "Error allocating memory %s\n", strerror(errno));	
+		/* sorry no memory */
+		return NULL;
+	}
+	
+	/* we have to know the size to copy the entire data */
+	memcpy(temp->data, element, temp->element_size);
+	temp->next = NULL;
+	
+	return temp;
 }
 
+Node* push_back(Node* head, const void* element) {
+
+	printf("Size -> %zu \n", head->element_size);
+
+	Node* temp = create_node(element, sizeof(head->element_size));
+	
+	if (head == NULL) {
+		/* if the list is empty */
+		return temp;
+	} else {	
+		Node* current = head;
+		while (current->next != NULL) {
+			/* point to the next node*/
+			current = current->next;
+		}
+		/* link out the last prv node */
+		current->next = temp;	
+	}
+
+	/* if the node is empty */
+	return head;
+}
+Node* push_front(Node** head, const void* element) {
+	Node* temp = create_node(element, (*head)->element_size);
+	
+	temp->next = (*head); /* pointed last when the head pointed */
+	
+	/* update the new head pointer */
+	(*head) = temp;
+	
+	return *head;
+}
+
+void* pop_front(Node** head) {
+
+	if (*head == NULL) {
+		/* the list is empty no data poping */
+		return *head;
+	}
+	Node* temp = *head;
+	
+	void* data = temp->data;
+
+	*head = temp->next;
+	
+	free(temp);
+	
+	return data;
+}
 /*
 	Create new_array then return the new_array that we have cretaed  
 	given size(bytes), and capacity  
 */
-void* array_init(size_t element, size_t capacity) {
+Array* array_init(size_t element, size_t capacity) {
 	
 	
 	Array* new_array = malloc(sizeof(Array));
 	if (new_array == NULL) {
 		new_array->status_err = -1;
+		fprintf(stderr, "Error value %d \n", errno);
+		fprintf(stderr, "Error allocating memory %s\n", strerror(errno));	
+		/* sorry no memory */
 		return NULL;
-		
-	}
-
+	} 
 	new_array->size = 0;
 	new_array->element_size = element;
 	new_array->capacity = capacity;
 
-	new_array->data = malloc(new_array->capacity * new_array->element_size);	
-	
+	new_array->data = malloc(new_array->capacity * new_array->element_size);		
 	if (new_array->data == NULL) {
 		new_array->status_err = -1;
+		fprintf(stderr, "Error value %d \n", errno);
+		fprintf(stderr, "Error allocating memory %s\n", strerror(errno));	
+		/* sorry no memory */
 		return NULL;	
 	}
 	new_array->status_err = 0;
@@ -54,7 +116,10 @@ int array_push(Array* a, const void* element) {
 
 		void* new_space = realloc(a->data, a->capacity * a->element_size);
 		if (new_space == NULL) {
+			/* write to status error */
 			a->status_err = -1;
+			fprintf(stderr, "Error value %d \n", errno);
+			fprintf(stderr, "Error allocating memory %s\n", strerror(errno));	
 			return -1;
 		}
 		a->data = new_space;
@@ -137,10 +202,8 @@ int str_len(const char* s) {
 */
 char *str_copy(char* dest, const char* src) {
 	
-	while (*dest != '\0') {
-		*dest++ = *src++;
-	}
-	return (char*)dest;
+	while ((*dest++ = *src++) != '\0') { /* leave it empty */}
+	return dest;
 }
 
 /* 
@@ -206,12 +269,13 @@ char *read_file(const char *path) {
 	
 	FILE* fptr = fopen(path, "r");
 	if (fptr == NULL) {
-		return NULL;
-	}
+		fprintf(stderr, "Value of error %d \n", errno);
+		fprintf(stderr, "Error open file %s \n", strerror(errno));
+	} 
 	/* it will return EOF */	
 	while (fgets(buffer, MAX_LINE_LENGTH, fptr) != NULL);
 		
-	buffer[MAX_LINE_LENGTH + 1] = '\0';
+	buffer[MAX_LINE_LENGTH] = '\0';
 	fclose(fptr);
 	/* don't forget to free*/
 	return buffer;
