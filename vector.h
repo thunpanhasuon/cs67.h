@@ -4,13 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <errno.h>
+#include "type.h"
 
 typedef struct {
     void *data;
-    size_t element_size;
-    size_t size;
-    size_t capacity;
+    usize element_size;
+    usize size;
+    usize capacity;
 } Vector;
 
 extern int errno;
@@ -29,7 +31,7 @@ extern int errno;
  * @example
  *   Vector* v = vector_init(sizeof(int), 4);
  */
-Vector* vector_init(size_t element, size_t new_capacity);
+Vector* vector_init(usize element);
 
 /**
  * @brief Pushes an element to the end of the vector
@@ -55,7 +57,32 @@ int vector_pop_back(Vector* vec);
  * @param index Zero-based index
  * @return      Pointer to element, or NULL if out of bounds
  */
-void* vector_get(Vector* vec, size_t index);
+void* vector_get(Vector* vec, usize index);
+
+/**
+ * @brief check if it empty  
+ * 
+ * @param vec   Pointer to the vector
+ * @return      true, or false  
+ */
+bool is_empty(Vector* vec);
+
+/**
+ * @brief free the entire vector data  
+ * 
+ * @param vec   Pointer to the vector
+ * @return      Pointer to a new memory element, or NULL if out of bounds
+ */
+void vector_clear(Vector* vec);
+
+/**
+ * @brief free the entire vector data  
+ * 
+ * @param vec   Pointer to the vector
+ * @param new_cap  The size of new capacity  
+ * @return      Pointer to a new memory element, or NULL if out of bounds
+ */
+void vector_reserve(Vector* vec, usize new_capacity);
 
 /**
  * @brief Frees all memory associated with the vector
