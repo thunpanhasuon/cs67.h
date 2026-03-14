@@ -1,28 +1,45 @@
-#include "vector.h"
+#include "list.h"
 
-typedef struct Task {
-	bool is_done;
-	char* string;
-} Task;
+void printForword(List* list) {
+	List* temp = list;
 
+	while (temp != NULL) {
+		printf("%d\n", temp->data);	
+		temp = temp->next;
+	}
+}
+void printBackword(List* list) {
+	List* temp = list;
+	if (temp == NULL) {
+		return;
+	}
+	
+	while (temp->next != NULL) {
+		temp = temp->next;
+	}
+	
+	while (temp != NULL) {
+		printf("%d\n",temp->data);
+		temp = temp->prev;
+	}
+}
 int main() {
-	
-	Vector* task = vector_init(sizeof(Task));
 
-	Task task1 = {false, "Do math homework"};
-	Task task2 = {false, "Do math practice"};
-	Task task3 = {false, "Do enlgish practice"};
-
-	vector_push(task, &task1);
-	vector_push(task, &task2);
-	vector_push(task, &task3);
-
-	for (size_t i = 0; i < task->size; i++) {
-		Task* t = vector_get(task, i);
-		printf("Done: %d, Task: %s\n", t->is_done, t->string);
-    	}
 	
-	vector_free(task);
+	List* list = NULL;	
 	
+	push_front(&list, 6); 
+	push_front(&list, 7); 			
+
+	delete_front(&list);
+	delete_front(&list);
+
+	push_front(&list, 6); 
+	printForword(list);
+	
+	list_free(&list);
+	printForword(list);
+
+
 	return 0;
 }

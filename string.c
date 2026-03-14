@@ -1,6 +1,5 @@
 #include "string.h"
 
-
 /*
 	String is just pointer at the end of the day
 	if we inc the pointer for s1, s2 to \0
@@ -30,11 +29,10 @@ int str_len(const char* s) {
 	inc the pointer and copy the string uitl it reach \0
 */
 char *str_copy(char* dest, const char* src) {
-	
-	while ((*dest++ = *src++) != '\0') { /* leave it empty */}
-	return dest;
+	char* initial = dest;
+	while ((*dest++ = *src++) != '\0');
+	return initial;
 }
-
 /* 
 	if it hit the the target char we return the pointer basically it position 
 	if not it hit the end so no match it just the return the stirng
@@ -57,14 +55,17 @@ char *str_chr(const char *str, const char uc) {
 	We start copying form there uitl it reach \0 
 */
 char* str_cat(char* dest, const char* src) {
-	char* ptr = dest;
+	/* save pointer for return */	
+	char* initial = dest;
 
+	/* move the pointer to the end */
 	while (*dest != '\0') { 
 		*dest++;
 	}
-	while ((*dest++ = *src++));
+	while ((*dest++ = *src++) != '\0') { /* I leaves this empty for a resssssssssssion :) */};
 
-	return ptr;		
+	return initial;
+
 }
 
 /* 
