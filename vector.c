@@ -98,10 +98,11 @@ void* vector_get(Vector* vec, usize index) {
 }
 
 bool is_empty(Vector* vec) {
-
-	if (vec->data == vec->data + (vec->size * vec->element_size)) return true;
-
-	return false;
+	if (vec->size == 0) {
+		return true;
+	} else {
+		return false;
+	}
 }
 void vector_free(Vector* vec) {
 	free(vec->data);
