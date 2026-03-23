@@ -75,14 +75,6 @@ bool is_empty(Vector* vec);
  */
 void vector_clear(Vector* vec);
 
-/**
- * @brief free the entire vector data  
- * 
- * @param vec   Pointer to the vector
- * @param new_cap  The size of new capacity  
- * @return      Pointer to a new memory element, or NULL if out of bounds
- */
-void vector_reserve(Vector* vec, usize new_capacity);
 
 /**
  * @brief Frees all memory associated with the vector
